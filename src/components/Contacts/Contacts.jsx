@@ -5,8 +5,12 @@ class Contacts extends Component {
     const { nameList } = this.props;
     return (
       <ul>
-        {nameList.map(({ name, id }) => (
-          <li key={id}>{name}</li>
+        {nameList.map(({ name, id, number }) => (
+          <li key={id}>
+            <p>
+              {name}: {number}
+            </p>
+          </li>
         ))}
       </ul>
     );
