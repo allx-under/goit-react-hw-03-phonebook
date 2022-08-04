@@ -18,6 +18,13 @@ class App extends Component {
 
     const name = e.target.elements.name.value;
     const number = e.target.elements.number.value;
+    const savedNames = this.state.contacts.map(contact => contact.name);
+    if (savedNames.includes(name)) {
+      alert(`${name} is already in contacts.`);
+      e.target.reset();
+      return;
+    }
+
     const contact = {
       name,
       number,
@@ -29,18 +36,20 @@ class App extends Component {
         contacts: [...prevState.contacts, contact],
       };
     });
-    console.log(e.currentTarget);
-    this.reset();
-  };
-
-  reset = initState => {
-    this.setState({ ...initState });
+    e.target.reset();
   };
 
   onInputChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+
+  onClickDelete = idToDel => {
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== idToDel),
+    });
+  };
+
   render() {
     return (
       <>
@@ -52,6 +61,7 @@ class App extends Component {
           filter={this.state.filter}
         />
         <Contacts
+          onClick={this.onClickDelete}
           nameList={this.state.contacts.filter(contact =>
             contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
           )}

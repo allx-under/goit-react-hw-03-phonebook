@@ -16,11 +16,15 @@ class ContactsForm extends Component {
     this.setState({ [name]: value });
   };
 
+  reset = () => {
+    this.setState({ ...INITIAL_STATE });
+  };
+
   render() {
     const { onSubmit } = this.props;
 
     return (
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} onReset={this.reset}>
         <label>Name</label>
         <input
           onChange={this.onInputChange}
