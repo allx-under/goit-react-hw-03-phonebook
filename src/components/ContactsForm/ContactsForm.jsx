@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Button from 'components/Button/Button';
+import styled from 'styled-components';
+import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
-const INITIAL_STATE = {
-  name: '',
-  number: '',
-};
+import Button from 'components/Button/Button';
 
 class ContactsForm extends Component {
   state = {
-    ...INITIAL_STATE,
+    name: '',
+    number: '',
   };
 
   onInputChange = e => {
@@ -17,16 +17,17 @@ class ContactsForm extends Component {
   };
 
   reset = () => {
-    this.setState({ ...INITIAL_STATE });
+    this.setState({ name: '', number: '' });
   };
 
   render() {
     const { onSubmit } = this.props;
-
+    const nameId = nanoid();
+    const numberId = nanoid();
     return (
-      <form onSubmit={onSubmit} onReset={this.reset}>
-        <label>Name</label>
-        <input
+      <StyledForm onSubmit={onSubmit} onReset={this.reset}>
+        <label htmlFor={nameId}>Name</label>
+        <StyledInput
           onChange={this.onInputChange}
           value={this.state.name}
           type="text"
@@ -34,10 +35,12 @@ class ContactsForm extends Component {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          id={nameId}
         />
 
-        <label>Number</label>
-        <input
+        <label htmlFor={numberId}>Number</label>
+        <StyledInput
+          id={numberId}
           onChange={this.onInputChange}
           value={this.state.number}
           type="tel"
@@ -48,9 +51,23 @@ class ContactsForm extends Component {
         />
 
         <Button />
-      </form>
+      </StyledForm>
     );
   }
 }
 
 export default ContactsForm;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+`;
+
+const StyledInput = styled.input`
+  margin-bottom: 10px;
+`;
+
+ContactsForm.propTypes = {
+  onSubmit: PropTypes.func,
+};

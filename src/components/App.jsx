@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import styled from 'styled-components';
 import Contacts from 'components/Contacts/Contacts';
 import ContactsForm from './ContactsForm/ContactsForm';
 import ContactsFilter from './ContactsFilter/ContactsFilter';
@@ -52,7 +52,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <Container>
         <Title title="Phonebook" />
         <ContactsForm onSubmit={this.onSubmitAddToContacts} />
         <Title title="Contacts" />
@@ -66,9 +66,13 @@ class App extends Component {
             contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
           )}
         />
-      </>
+      </Container>
     );
   }
 }
 
 export default App;
+
+const Container = styled.div`
+  margin: 0 20px;
+`;

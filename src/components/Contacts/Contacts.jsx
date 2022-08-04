@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { StyledBtn } from 'components/Button/Button';
 
 class Contacts extends Component {
   render() {
@@ -9,9 +12,9 @@ class Contacts extends Component {
           <li key={id}>
             <p>
               {name}: {number}{' '}
-              <button onClick={() => onClick(id)} type="button">
+              <StyledBtn onClick={() => onClick(id)} type="button">
                 Delete
-              </button>
+              </StyledBtn>
             </p>
           </li>
         ))}
@@ -21,3 +24,10 @@ class Contacts extends Component {
 }
 
 export default Contacts;
+
+Contacts.propTypes = {
+  nameList: PropTypes.shape({
+    name: PropTypes.string,
+    number: PropTypes.number,
+  }),
+};
