@@ -26,8 +26,11 @@ class Contacts extends Component {
 export default Contacts;
 
 Contacts.propTypes = {
-  nameList: PropTypes.shape({
-    name: PropTypes.string,
-    number: PropTypes.number,
-  }),
+  nameList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+  onClick: PropTypes.func,
 };

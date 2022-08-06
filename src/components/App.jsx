@@ -13,16 +13,11 @@ class App extends Component {
     filter: '',
   };
 
-  onSubmitAddToContacts = e => {
-    e.preventDefault();
-
-    const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
-    const savedNames = this.state.contacts.map(contact => contact.name);
-    if (savedNames.includes(name)) {
-      alert(`${name} is already in contacts.`);
-      e.target.reset();
-      return;
+  onSubmitAddToContacts = (name, number, form) => {
+    const sameName = this.state.contacts.find(contact => contact.name === name);
+    if (sameName) {
+      alert('This contact is already in your list');
+      return form.reset();
     }
 
     const contact = {
@@ -36,7 +31,6 @@ class App extends Component {
         contacts: [...prevState.contacts, contact],
       };
     });
-    e.target.reset();
   };
 
   onInputChange = e => {

@@ -22,10 +22,19 @@ class ContactsForm extends Component {
 
   render() {
     const { onSubmit } = this.props;
+
+    const handleSubmit = e => {
+      e.preventDefault();
+      const form = e.target;
+      onSubmit(this.state.name, this.state.number, form);
+      form.reset();
+    };
+
     const nameId = nanoid();
     const numberId = nanoid();
+
     return (
-      <StyledForm onSubmit={onSubmit} onReset={this.reset}>
+      <StyledForm onSubmit={handleSubmit} onReset={this.reset}>
         <label htmlFor={nameId}>Name</label>
         <StyledInput
           onChange={this.onInputChange}
