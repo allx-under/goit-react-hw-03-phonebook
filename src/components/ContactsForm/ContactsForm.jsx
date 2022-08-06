@@ -16,25 +16,26 @@ class ContactsForm extends Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = e => {
+    const { onSubmit } = this.props;
+    e.preventDefault();
+
+    const form = e.target;
+    onSubmit(this.state.name, this.state.number, form);
+
+    form.reset();
+  };
+
   reset = () => {
     this.setState({ name: '', number: '' });
   };
 
   render() {
-    const { onSubmit } = this.props;
-
-    const handleSubmit = e => {
-      e.preventDefault();
-      const form = e.target;
-      onSubmit(this.state.name, this.state.number, form);
-      form.reset();
-    };
-
     const nameId = nanoid();
     const numberId = nanoid();
 
     return (
-      <StyledForm onSubmit={handleSubmit} onReset={this.reset}>
+      <StyledForm onSubmit={this.handleSubmit} onReset={this.reset}>
         <label htmlFor={nameId}>Name</label>
         <StyledInput
           onChange={this.onInputChange}
