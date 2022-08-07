@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import { StyledBtn } from 'components/Button/Button';
 
 class Contacts extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.nameList.length !== this.props.nameList.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.props.nameList));
+    }
+  }
+
   render() {
     const { nameList, onClick } = this.props;
     return (

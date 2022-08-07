@@ -44,6 +44,16 @@ class App extends Component {
     });
   };
 
+  componentDidMount() {
+    try {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contacts')) || [],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     return (
       <Container>
